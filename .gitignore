@@ -1,0 +1,52 @@
+# JVM and Clojure
+tooling
+tooling/
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+lib/
+classes/
+target/
+checkouts/
+.nrepl-port
+.cpcache/
+.eastwood
+
+# Temp files
+*.orig
+*~
+.*.swp
+.*.swo
+*.tmp
+*.bak
+
+# Editors and tooling
+TAGS
+tags
+.tags
+.idea
+.classpath
+.project
+.settings
+recording.jfr
+*.iml
+
+# Dev logging
+*.log
+
+# OS X
+.DS_Store
+
+
+# cdk
+ami-build-pipeline/cdk.out/
+node_modules
+
+/infra/cdk.out/
+/.lsp/
+/.clj-kondo/
+
+# dev docker container
+docker/.dockerhome/
+docker/.built
