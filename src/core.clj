@@ -63,20 +63,20 @@
       (loop [r1        (sort (first grid))
              r2        (sort (nth grid 1))
              remaining (drop 2 grid)]
-
-        (if (empty? remaining)
-          "YES"
-          (if (not (sorted-rows? r1 r2))
-            "NO"
-            (recur r2
-                   (first remaining)
-                   (drop 1 remaining))
-            ))))))
+        (let [rows-sorted? (sorted-rows? r1 r2)]
+          (cond
+            (and (empty? remaining) rows-sorted?) "YES"
+            (and (empty? remaining) (not rows-sorted?)) "NO"
+            (not rows-sorted?) "NO"
+            :else (recur r2
+                         (first remaining)
+                         (drop 1 remaining))))))))
 
 (comment
   (gridChallenge ["a"])
-  (gridChallenge ["ab"
-                  "cd"])
+  (gridChallenge ["abc"
+                  "abc"
+                  "aba"])
 
   (let [n    10
         data (->> (range n)
@@ -85,7 +85,7 @@
                               (map (fn [_]
                                      (char (rand-nth (range (int \a) (inc (int \z)))))))
                               (apply str)))))
-        data ["abi"
+        #_#_data ["abi"
               "def"
               "ghi"]]
     (time (gridChallenge data)))
