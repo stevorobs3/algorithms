@@ -51,16 +51,33 @@
 ;; sort will be n Lg n for each row = m*n log n
 ;; in this case up to 100 characters
 (defn gridChallenge [grid]
-  ;; naive n^2 solution
-  (if (true? (->> grid
-                  (map sort)
-                  (apply map (fn [& args]
-                               (apply <= (map int args))))
-                  (apply = true)))
-    "YES"
-    "NO"))
+  ;; sort each row in turn, check alphabetical order of 2 rows at a time
+  (let [sorted-rows? (fn [r1 r2]
+                       (true? (->> [r1 r2]
+                                   (map sort)
+                                   (apply map (fn [& args]
+                                                (apply <= (map int args))))
+                                   (apply = true))))]
+    (if (= 1 (count (first grid)))
+      "YES"
+      (loop [r1        (sort (first grid))
+             r2        (sort (nth grid 1))
+             remaining (drop 2 grid)]
+
+        (if (empty? remaining)
+          "YES"
+          (if (not (sorted-rows? r1 r2))
+            "NO"
+            (recur r2
+                   (first remaining)
+                   (drop 1 remaining))
+            ))))))
 
 (comment
+  (gridChallenge ["a"])
+  (gridChallenge ["ab"
+                  "cd"])
+
   (let [n    10
         data (->> (range n)
                   (map (fn [i]
