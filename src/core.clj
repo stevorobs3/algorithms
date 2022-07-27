@@ -42,16 +42,7 @@
                   (take-last (dec n))
                   (apply +)))))
 
-;; square
-;; a-z
-;; sort the rows
-;; are columns in ascending order?
-;; early termination / greedy?
-;; parallelised at the end?
-;; sort will be n Lg n for each row = m*n log n
-;; in this case up to 100 characters
 (defn gridChallenge [grid]
-  ;; sort each row in turn, check alphabetical order of 2 rows at a time
   (let [sorted-rows? (fn [r1 r2]
                        (true? (->> [r1 r2]
                                    (map sort)
